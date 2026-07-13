@@ -1,0 +1,18 @@
+2026-07-13 14:26:23.400 -04:00 [INF] Now listening on: http://localhost:5090
+2026-07-13 14:26:23.419 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-13 14:26:23.420 -04:00 [INF] Hosting environment: Development
+2026-07-13 14:26:23.420 -04:00 [INF] Content root path: /home/daniel/RiderProjects/backend-template/BackendTemplate.Api
+2026-07-13 14:26:29.155 -04:00 [WRN] Failed to determine the https port for redirect.
+2026-07-13 14:26:29.184 -04:00 [INF] HTTP GET / respondió 404 en 45.5376 ms
+2026-07-13 14:26:33.489 -04:00 [INF] HTTP GET /swagger/ respondió 301 en 1.8669 ms
+2026-07-13 14:26:33.873 -04:00 [INF] HTTP GET /swagger/v1/swagger.json respondió 200 en 98.1884 ms
+2026-07-13 14:27:03.711 -04:00 [WRN] You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-13 14:27:03.740 -04:00 [INF] HTTP GET /api/Health respondió 200 en 54.6241 ms
+2026-07-13 14:36:05.277 -04:00 [INF] Application is shutting down...
+2026-07-13 15:03:13.661 -04:00 [INF] Now listening on: http://localhost:5090
+2026-07-13 15:03:13.693 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-13 15:03:13.694 -04:00 [INF] Hosting environment: Development
+2026-07-13 15:03:13.694 -04:00 [INF] Content root path: /home/daniel/RiderProjects/backend-template/BackendTemplate.Api
+2026-07-13 15:03:15.650 -04:00 [WRN] Failed to determine the https port for redirect.
+2026-07-13 15:03:15.726 -04:00 [INF] HTTP GET / respondió 404 en 89.7397 ms
+2026-07-13 15:03:34.908 -04:00 [INF] HTTP GET /swagger/v1/swagger.json respondió 200 en 135.1132 ms
