@@ -1,0 +1,168 @@
+### ====================================================================
+### Enterprise .NET Starter Kit — HTTP Request Collection
+### ====================================================================
+@host = http://localhost:5000
+@adminEmail = admin@template.com
+@adminPassword = Admin123!
+
+### --------------------------------------------------------------------
+### 1. HEALTH CHECKS
+### --------------------------------------------------------------------
+
+# @name SystemHealth
+GET {{host}}/health
+Accept: application/json
+
+###
+
+# @name CustomHealthEndpoint
+GET {{host}}/api/health
+Accept: application/json
+
+
+### --------------------------------------------------------------------
+### 2. AUTHENTICATION & IDENTITY
+### --------------------------------------------------------------------
+
+# @name RegisterUser
+POST {{host}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "Password123!",
+  "firstName": "John",
+  "lastName": "Doe",
+  "role": "User"
+}
+
+###
+
+# @name LoginAdmin
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+### Capture JWT Token from Login Response
+@accessToken = {{LoginAdmin.response.body.$.data.accessToken}}
+@refreshToken = {{LoginAdmin.response.body.$.data.refreshToken}}
+
+###
+
+# @name RefreshToken
+POST {{host}}/api/auth/refresh-token
+Content-Type: application/json
+
+{
+  "accessToken": "{{accessToken}}",
+  "refreshToken": "{{refreshToken}}"
+}
+
+###
+
+# @name ChangePassword
+POST {{host}}/api/auth/change-password
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "currentPassword": "Admin123!",
+  "newPassword": "NewSecurePassword123!"
+}
+
+###
+
+# @name RevokeToken
+POST {{host}}/api/auth/revoke-token
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+
+### --------------------------------------------------------------------
+### 3. STUDENTS DOMAIN MODULE (CRUD & PAGINATION)
+### --------------------------------------------------------------------
+
+# @name CreateStudent
+POST {{host}}/api/students
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Alex",
+  "lastName": "Morgan",
+  "email": "alex.morgan@example.com",
+  "phoneNumber": "+1 555-0199",
+  "dateOfBirth": "2001-04-12T00:00:00Z"
+}
+
+### Capture Created Student ID
+@studentId = {{CreateStudent.response.body.$.data}}
+
+###
+
+# @name GetStudentsPaginated
+GET {{host}}/api/students?pageNumber=1&pageSize=10&searchTerm=alex
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
+###
+
+# @name GetStudentById
+GET {{host}}/api/students/{{studentId}}
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
+###
+
+# @name UpdateStudent
+PUT {{host}}/api/students/{{studentId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "id": "{{studentId}}",
+  "firstName": "Alexander",
+  "lastName": "Morgan",
+  "email": "alex.morgan@example.com",
+  "phoneNumber": "+1 555-9999",
+  "dateOfBirth": "2001-04-12T00:00:00Z",
+  "isActive": true
+}
+
+###
+
+# @name DeleteStudent (Soft Delete)
+DELETE {{host}}/api/students/{{studentId}}
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
+
+### --------------------------------------------------------------------
+### 4. FILE STORAGE (LOCAL / CLOUDINARY / SUPABASE STORAGE)
+### --------------------------------------------------------------------
+
+# @name UploadFileMultipart
+POST {{host}}/api/files/upload?folder=avatars
+Authorization: Bearer {{accessToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="sample.png"
+Content-Type: image/png
+
+< ./sample.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name DeleteUploadedFile
+DELETE {{host}}/api/files?fileUrlOrPublicId=avatars/sample.png
+Authorization: Bearer {{accessToken}}
+Accept: application/json

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vibecoder Playbook & Prompt Pack - Enterprise .NET Starter Kit</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4338ca;
+            --secondary: #0ea5e9;
+            --accent: #f43f5e;
+            --emerald: #10b981;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --prompt-bg: #0f172a;
+            --prompt-border: #334155;
+            --prompt-text: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--text);
+            background-color: #ffffff;
+            line-height: 1.6;
+            font-size: 13.5px;
+        }
+
+        @page {
+            size: A4;
+            margin: 18mm 14mm 18mm 14mm;
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .no-break {
+                page-break-inside: avoid;
+            }
+            .cover-page {
+                page-break-after: always;
+                height: 96vh;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Cover Page Styling */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 94vh;
+            padding: 40px 25px;
+            background: linear-gradient(135deg, #090d16 0%, #1e113a 50%, #0c213d 100%);
+            color: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 35px;
+        }
+
+        .badge-vibecoder {
+            display: inline-block;
+            background: linear-gradient(90deg, #f43f5e, #ec4899, #8b5cf6);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .cover-title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #ffffff, #a5b4fc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cover-subtitle {
+            font-size: 17px;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+
+        .ai-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .ai-badge {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .cover-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 12.5px;
+            color: #94a3b8;
+        }
+
+        /* Typography & Structure */
+        h1, h2, h3, h4 {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 22px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2 {
+            font-size: 17px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+
+        h3 {
+            font-size: 14.5px;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            color: #334155;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #334155;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+            color: #334155;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        /* Prompt Cards */
+        .prompt-card {
+            background-color: var(--prompt-bg);
+            border: 1px solid var(--prompt-border);
+            border-radius: 8px;
+            margin: 16px 0 22px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .prompt-header {
+            background: linear-gradient(90deg, #1e293b, #334155);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--prompt-border);
+        }
+
+        .prompt-tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #38bdf8;
+        }
+
+        .prompt-copy-hint {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .prompt-body {
+            padding: 14px 16px;
+            color: var(--prompt-text);
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* Callouts */
+        .callout {
+            border-left: 4px solid var(--primary);
+            background-color: #f5f3ff;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+        }
+
+        .callout-emerald {
+            border-left-color: var(--emerald);
+            background-color: #ecfdf5;
+        }
+
+        .callout-accent {
+            border-left-color: var(--accent);
+            background-color: #fff1f2;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px 0;
+            font-size: 12.5px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 11.5px;
+            background-color: #f1f5f9;
+            color: var(--primary-dark);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div>
+            <span class="badge-vibecoder">⚡ The Vibecoder Playbook • AI Prompt Pack</span>
+            <h1 class="cover-title">The Vibecoder Playbook</h1>
+            <p class="cover-subtitle">Guía Paso a Paso & Prompts Expertos para Construir y Desplegar APIs con IA en Minutos</p>
+            
+            <div class="ai-badges">
+                <span class="ai-badge">Cursor AI (.cursorrules)</span>
+                <span class="ai-badge">Windsurf</span>
+                <span class="ai-badge">Claude 3.7 / 3.5 Sonnet</span>
+                <span class="ai-badge">ChatGPT (GPT-4o / o3)</span>
+                <span class="ai-badge">GitHub Copilot</span>
+                <span class="ai-badge">Antigravity</span>
+            </div>
+        </div>
+
+        <div style="margin: 25px 0;">
+            <p style="color: #cbd5e1; font-size: 14px; max-width: 650px; line-height: 1.6;">
+                Convierte cualquier idea en un backend listo para producción. Incluye el <strong>Prompt Maestro de Sistema</strong>, generadores de modelos de datos, creadores de features/CRUDs en slices verticales, protección con roles y autenticación JWT, tests automatizados y guía de despliegue en <strong>Render / Railway + Neon PostgreSQL</strong>.
+            </p>
+        </div>
+
+        <div class="cover-footer">
+            <div>
+                <strong>Starter Kit:</strong> Enterprise .NET 10 & C# 13<br>
+                <strong>Patrón:</strong> Clean Architecture + CQRS + MediatR
+            </div>
+            <div style="text-align: right;">
+                <strong>Edición:</strong> Vibecoder Masterclass v1.0<br>
+                <strong>Estado:</strong> 100% Copy-Paste Ready
+            </div>
+        </div>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <section>
+        <h1>⚡ ¿Qué es esta Guía y Cómo Usarla?</h1>
+        <p>
+            Como <strong>Vibecoder</strong>, tu ventaja competitiva es la velocidad. Sin embargo, las IAs suelen cometer errores críticos cuando programan backends desde cero: crean controladores gigantescos, mezclan lógica de base de datos con APIs, olvidan la expiración de tokens o escriben código frágil.
+        </p>
+
+        <div class="callout callout-emerald no-break">
+            <div class="callout-title">💡 La Solución Definitiva</div>
+            Este <strong>Starter Kit Enterprise</strong> ya tiene resuelto el 90% del trabajo pesado de ingeniería (Clean Architecture, JWT con Refresh Tokens, PostgreSQL 17, Scalar API Docs, Docker y Seguridad OWASP). Con estos prompts, tu IA generará código que encaja como un guante en la arquitectura sin romper nada.
+        </div>
+    </section>
+
+    <!-- PROMPT MAESTRO -->
+    <section class="page-break">
+        <h1>🤖 Prompt Maestro (Instrucciones de Sistema / .cursorrules)</h1>
+        <p>
+            Copia y pega este bloque en tu archivo <code>.cursorrules</code>, en las reglas de proyecto de Windsurf o al inicio de cualquier conversación con tu IA:
+        </p>
+
+        <div class="prompt-card no-break">
+            <div class="prompt-header">
+                <span class="prompt-tag">📋 PROMPT MAESTRO DE SISTEMA (.cursorrules)</span>
+                <span class="prompt-copy-hint">Copiar y Pegar en la IA</span>
+            </div>
+            <div class="prompt-body">Eres un Arquitecto de Software Senior especializado en .NET 10, C# 13 y Clean Architecture.
+Estamos trabajando sobre una base de código estructurada con Clean Architecture y CQRS (MediatR).
+
+REGLAS ESTRICTAS QUE DEBES CUMPLIR SIEMPRE:
+1. ESTRUCTURA DE CAPAS:
+   - BackendTemplate.Domain: Entidades puras (heredando de AuditableEntity y ISoftDeletable), Result&lt;T&gt;, Error, Enums. Cero dependencias externas.
+   - BackendTemplate.Application: Casos de uso (Features/NombreEntidad/Commands o Queries). Interfaces (IApplicationDbContext, IIdentityService), validadores FluentValidation, pipeline behaviors.
+   - BackendTemplate.Infrastructure: Implementación de EF Core, PostgreSQL (Npgsql), Identity, interceptores y configuraciones Fluent API.
+   - BackendTemplate.Api: Controladores heredando de ApiControllerBase, middlewares, Program.cs. No pongas lógica de negocio en los controladores.
+
+2. PATRÓN RESULT & ERRORES:
+   - Todos los Handlers deben retornar Result o Result&lt;T&gt;.
+   - Usa Error.NotFound(), Error.Validation(), Error.Conflict(), Error.Unauthorized(), Error.Forbidden() para fallos semánticos. No arrojes excepciones para flujos normales de negocio.
+
+3. VALIDACIONES:
+   - Cada Command debe tener su clase Validator heredando de AbstractValidator&lt;TCommand&gt;. El ValidationBehavior de MediatR los ejecuta automáticamente.
+
+4. PERSISTENCIA:
+   - Las entidades se auditan automáticamente (CreatedAt, CreatedBy, LastModifiedAt) y se borran con Soft-Delete vía AuditableEntitySaveChangesInterceptor.
+   - En consultas de solo lectura usa .AsNoTracking().
+
+5. API Y DOCUMENTACIÓN:
+   - Los controladores heredan de ApiControllerBase y retornan HandleResult(await Mediator.Send(...)).
+   - La documentación interactiva se genera automáticamente con Scalar en /scalar/v1.
+
+Cuando te pida una nueva feature, genera siempre el código completo para todas las capas necesarias sin omitir ninguna.</div>
+        </div>
+    </section>
+
+    <!-- FASE 1: MODELADO -->
+    <section class="page-break">
+        <h1>📦 Fase 1: De tu Idea a la Base de Datos</h1>
+        <p>
+            Usa este prompt cuando tengas una idea de negocio y quieras que la IA genere el modelo relacional exacto para el Starter Kit.
+        </p>
+
+        <div class="prompt-card no-break">
+            <div class="prompt-header">
+                <span class="prompt-tag">📋 PROMPT 1: MODELADO DE BASE DE DATOS</span>
+                <span class="prompt-copy-hint">Copiar y Pegar en la IA</span>
+            </div>
+            <div class="prompt-body">Tengo la siguiente idea de negocio para mi aplicación:
+"[DESCRIBE TU IDEA AQUÍ, EJ: Una plataforma SaaS de reservas para consultorios médicos con Doctores, Pacientes, Citas y Pagos]"
+
+Actúa como Arquitecto de Datos .NET y genera el modelo de entidades para el Enterprise Starter Kit:
+1. Diseña las entidades de dominio necesarias en C# 13 que hereden de `AuditableEntity` e implementen `ISoftDeletable`.
+2. Incluye métodos de negocio (ej. CancelarCita, CompletarPago) y un constructor claro con encapsulación (`private set`).
+3. Agrega las propiedades `DbSet&lt;T&gt;` necesarias para la interfaz `IApplicationDbContext` en Application.
+4. Genera las clases de configuración Fluent API en Infrastructure (`IEntityTypeConfiguration&lt;T&gt;`) con tipos de columna PostgreSQL, índices únicos y relaciones (HasOne/HasMany).
+5. Dame el código listo para copiar y pegar archivo por archivo.</div>
+        </div>
+    </section>
+
+    <!-- FASE 2: FEATURES / CRUD -->
+    <section class="page-break">
+        <h1>⚡ Fase 2: Creación de Módulos & CRUD Completo</h1>
+        <p>
+            Usa este prompt para generar una funcionalidad completa en vertical slices (Command, Query, Validator, Handler, Fluent API y Controller).
+        </p>
+
+        <div class="prompt-card no-break">
+            <div class="prompt-header">
+                <span class="prompt-tag">📋 PROMPT 2: GENERADOR DE FEATURES & CRUD</span>
+                <span class="prompt-copy-hint">Copiar y Pegar en la IA</span>
+            </div>
+            <div class="prompt-body">Quiero agregar el módulo/feature "[NOMBRE_DEL_MODULO, EJ: Appointments / Citas]" a mi backend.
+
+La entidad tiene los siguientes campos:
+- DoctorId (Guid, requerido)
+- PatientId (Guid, requerido)
+- AppointmentDate (DateTime, requerida)
+- Reason (string, máx 250 caracteres)
+- Status (Enum: Scheduled, Completed, Cancelled)
+
+Genera el código completo siguiendo estrictamente la arquitectura del Starter Kit:
+1. DOMAIN: Entidad de dominio con métodos de negocio y soft-delete.
+2. APPLICATION:
+   - CreateAppointmentCommand + Validator + Handler
+   - UpdateAppointmentCommand + Validator + Handler
+   - DeleteAppointmentCommand + Validator + Handler (Soft-delete)
+   - GetAppointmentByIdQuery + Handler + DTO
+   - GetAppointmentsWithPaginationQuery + Handler (usando PaginatedResult&lt;T&gt;)
+3. INFRASTRUCTURE:
+   - Configuración Fluent API con HasQueryFilter(!IsDeleted) e índices.
+4. API:
+   - AppointmentsController heredando de ApiControllerBase con endpoints REST bien nombrados y Swagger/Scalar annotations.
+
+Escribe el código completo, sin placeholders de tipo "// todo" ni código dummy.</div>
+        </div>
+    </section>
+
+    <!-- FASE 3: AUTH Y ROLES -->
+    <section class="page-break">
+        <h1>🔐 Fase 3: Seguridad, Autenticación y Roles</h1>
+        <p>
+            Aprende a proteger cualquier endpoint y obtener los datos del usuario conectado.
+        </p>
+
+        <div class="prompt-card no-break">
+            <div class="prompt-header">
+                <span class="prompt-tag">📋 PROMPT 3: PROTECCIÓN CON JWT Y ROLES</span>
+                <span class="prompt-copy-hint">Copiar y Pegar en la IA</span>
+            </div>
+            <div class="prompt-body">Necesito proteger los endpoints de mi controlador `[NOMBRE_CONTROLADOR, EJ: InvoicesController]` y vincular los datos al usuario que inició sesión.
+
+Requisitos:
+1. Solo usuarios autenticados con JWT pueden acceder (`[Authorize]`).
+2. El endpoint de eliminación o modificación administrativa debe requerir el rol `Administrator` (`[Authorize(Roles = "Administrator")]`).
+3. En el comando de creación, el ID del usuario creador debe obtenerse de `ICurrentUserService.UserId` y no del cuerpo de la petición (por seguridad).
+4. En las consultas (Queries), si el usuario es un `User` estándar, solo debe ver sus propios registros; si es `Administrator`, puede ver todos los registros.
+
+Muestra cómo modificar el Controller y el QueryHandler de Application para implementar estas reglas.</div>
+        </div>
+    </section>
+
+    <!-- FASE 4: TESTING -->
+    <section class="page-break">
+        <h1>🧪 Fase 4: Testing Automatizado</h1>
+        <p>
+            Genera pruebas unitarias e integradas para garantizar que tus módulos nunca se rompan en producción.
+        </p>
+
+        <div class="prompt-card no-break">
+            <div class="prompt-header">
+                <span class="prompt-tag">📋 PROMPT 4: SUITE DE PRUEBAS AUTOMATIZADAS</span>
+                <span class="prompt-copy-hint">Copiar y Pegar en la IA</span>
+            </div>
+            <div class="prompt-body">Genera la suite de pruebas automatizadas para el módulo `[NOMBRE_DEL_MODULO, EJ: Invoices]`:
+
+1. TESTS UNITARIOS (en BackendTemplate.UnitTests):
+   - Pruebas para el CommandValidator (probando casos válidos e inválidos como campos vacíos, valores negativos o longitudes excedidas).
+   - Pruebas para los Handlers usando `TestDbContextFactory.Create()` (InMemory DB) verificando que devuelvan `Result.Success` o `Result.Failure(Error.NotFound)`.
+
+2. TESTS DE INTEGRACIÓN (en BackendTemplate.IntegrationTests):
+   - Prueba HTTP usando `CustomWebApplicationFactory` y la colección `[Collection("IntegrationTests")]`.
+   - Verifica que un usuario no autenticado reciba 401 Unauthorized.
+   - Verifica que con un payload válido devuelva 200 OK y la estructura `ApiResponse&lt;T&gt;`.
+
+Escribe las pruebas listas para ejecutarse con `dotnet test`.</div>
+        </div>
+    </section>
+
+    <!-- FASE 5: DESPLIEGUE EN RENDER -->
+    <section class="page-break">
+        <h1>🚀 Fase 5: Despliegue en 5 Minutos (Render + Neon)</h1>
+        
+        <h2>Guía Rápida de Despliegue:</h2>
+        <ol>
+            <li><strong>Crear BD en Neon.tech:</strong> Crea un proyecto gratuito en <a href="https://neon.tech">Neon.tech</a> y copia el Connection String.</li>
+            <li><strong>Crear Web Service en Render.com:</strong> Conecta tu repositorio de GitHub, selecciona el entorno <strong>Docker</strong> y Render usará el <code>Dockerfile</code> optimizado.</li>
+            <li><strong>Configurar Variables de Entorno en Render:</strong></li>
+        </ol>
+
+        <div class="prompt-card no-break">
+            <div class="prompt-header">
+                <span class="prompt-tag">⚙️ VARIABLES DE ENTORNO PARA RENDER / RAILWAY</span>
+            </div>
+            <div class="prompt-body">ASPNETCORE_ENVIRONMENT=Production
+ASPNETCORE_HTTP_PORTS=8080
+ConnectionStrings__DefaultConnection=Host=tu-host.neon.tech;Database=neondb;Username=tu_user;Password=tu_pass;SSL Mode=Require;Trust Server Certificate=true;
+JwtSettings__Secret=MiClaveSuperSecretaYExtremadamenteLargaDeMasDe64CaracteresSeguros123!
+JwtSettings__Issuer=https://tu-api.onrender.com
+JwtSettings__Audience=https://tu-frontend.vercel.app
+JwtSettings__ExpirationMinutes=60
+JwtSettings__RefreshTokenExpirationDays=7
+CorsSettings__AllowedOrigins__0=https://tu-frontend.vercel.app
+Database__ApplyMigrationsOnStartup=true</div>
+        </div>
+
+        <div class="callout callout-emerald no-break">
+            <div class="callout-title">🎉 ¡Auto-Migración y Auto-Seed!</div>
+            Con <code>Database__ApplyMigrationsOnStartup=true</code>, la API creará automáticamente las tablas en Neon y sembrará el usuario <code>admin@template.com</code> con contraseña <code>Admin123!</code> en el primer arranque.
+        </div>
+    </section>
+
+    <!-- QUICK REFERENCE -->
+    <section class="page-break">
+        <h1>🛠️ Atajos y Referencia Rápida</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Acción</th>
+                    <th>Comando / Atajo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Iniciar Base de Datos Local</strong></td>
+                    <td><code>docker compose up -d postgres redis mailpit</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Ejecutar API Localmente</strong></td>
+                    <td><code>dotnet run --project BackendTemplate.Api</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Documentación Interactiva Scalar</strong></td>
+                    <td>Navega a <code>http://localhost:5000/scalar/v1</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Ver Emails Locales (Mailpit)</strong></td>
+                    <td>Navega a <code>http://localhost:8025</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Ejecutar Toda la Suite de Pruebas</strong></td>
+                    <td><code>dotnet test</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Probar Peticiones HTTP</strong></td>
+                    <td>Abre <code>backend-requests.http</code> en VS Code / Visual Studio</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--text-light); font-size: 12px;">
+            The Vibecoder Playbook • Enterprise .NET Starter Kit v1.0.0
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace BackendTemplate.Api.Middlewares;
 
 public class SecurityHeadersMiddleware
@@ -13,17 +15,27 @@ public class SecurityHeadersMiddleware
     {
         var headers = context.Response.Headers;
 
-        // Previene que el navegador "adivine" el tipo de contenido y ejecute scripts ocultos
+        // Prevent MIME type sniffing
         headers["X-Content-Type-Options"] = "nosniff";
-        
-        // Previene ataques XSS básicos
-        headers["X-XSS-Protection"] = "1; mode=block";
-        
-        // Evita que la API sea incrustada en un iFrame (Clickjacking)
+
+        // Prevent Clickjacking for API responses
         headers["X-Frame-Options"] = "DENY";
-        
-        // Política de seguridad de contenido restrictiva para una API
-        headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'; sandbox";
+
+        // Restrict referrer information sent with requests
+        headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+
+        // Disable unnecessary browser features
+        headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()";
+
+        // Restrict Adobe Flash / PDF cross-domain policies
+        headers["X-Permitted-Cross-Domain-Policies"] = "none";
+
+        // Content Security Policy: Allow Scalar and Swagger UI while keeping API strict
+        var path = context.Request.Path.Value?.ToLowerInvariant() ?? string.Empty;
+        if (!path.StartsWith("/swagger") && !path.StartsWith("/scalar") && !path.StartsWith("/openapi"))
+        {
+            headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none';";
+        }
 
         await _next(context);
     }

@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "clean-architecture": {
+      "source": "codewithmukesh/dotnet-claude-kit",
+      "sourceType": "github",
+      "skillPath": "skills/clean-architecture/SKILL.md",
+      "computedHash": "009579b0785dccb1a65a08d0a1f8480c0538cfa89a26f8554145f35ab2c6ed7e"
+    },
+    "docker": {
+      "source": "codewithmukesh/dotnet-claude-kit",
+      "sourceType": "github",
+      "skillPath": "skills/docker/SKILL.md",
+      "computedHash": "2520a3339657f27ca2ef1e96dc336bafb3b294198c828ca1b088e104c18c6828"
+    },
+    "resilience": {
+      "source": "codewithmukesh/dotnet-claude-kit",
+      "sourceType": "github",
+      "skillPath": "skills/resilience/SKILL.md",
+      "computedHash": "0b3459fe9f13c07028589c0094db6b3f3bab9c28d3e6cca181b010020c679f9c"
+    },
+    "scaffold": {
+      "source": "codewithmukesh/dotnet-claude-kit",
+      "sourceType": "github",
+      "skillPath": "skills/scaffold/SKILL.md",
+      "computedHash": "a3f84b61aa5f5b0a442ef77252ecd86d91254ff74e64bade54a511744710f94d"
+    },
+    "scalar": {
+      "source": "codewithmukesh/dotnet-claude-kit",
+      "sourceType": "github",
+      "skillPath": "skills/scalar/SKILL.md",
+      "computedHash": "9ce7d4573065aea94baf3a051469538aec472e220e8df3b78c5aafab01d9629c"
+    },
+    "security-scan": {
+      "source": "codewithmukesh/dotnet-claude-kit",
+      "sourceType": "github",
+      "skillPath": "skills/security-scan/SKILL.md",
+      "computedHash": "1fc9e2724d5aca0bb3c6a30e47560eadfdaf81ed59aad9b68a5eb84787b90000"
+    },
+    "testing": {
+      "source": "codewithmukesh/dotnet-claude-kit",
+      "sourceType": "github",
+      "skillPath": "skills/testing/SKILL.md",
+      "computedHash": "864cbb1e1989e568c1b6c72f3631d0054b4ed51534c4574003f9eb70b144323a"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+2026-08-28 17:04:36.934 -04:00 [INF] User profile is available. Using 'C:\Users\Daniel Moya\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-08-28 17:04:37.950 -04:00 [ERR] An error occurred using the connection to database 'BackendTemplateDb' on server 'tcp://localhost:5432'.
+2026-08-28 17:04:37.955 -04:00 [ERR] An error occurred while initializing or migrating the database.
+Npgsql.PostgresException (0x80004005): 28P01: la autentificaci�n password fall� para el usuario �postgres�
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|209_0(NpgsqlConnector conn, String username, SslMode sslMode, GssEncryptionMode gssEncMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|209_0(NpgsqlConnector conn, String username, SslMode sslMode, GssEncryptionMode gssEncMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.GetAppliedMigrationsAsync(CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Migrations.Internal.NpgsqlHistoryRepository.GetAppliedMigrationsAsync(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetAppliedMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetPendingMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at BackendTemplate.Infrastructure.Persistence.ApplicationDbContextInitializer.InitializeAsync() in D:\PROYECTOS\LAB-CONTROL\.Net-Started-Kit\backend-template-net\BackendTemplate.Infrastructure\Persistence\ApplicationDbContextInitializer.cs:line 34
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: la autentificaci�n password fall� para el usuario �postgres�
+    File: auth.c
+    Line: 320
+    Routine: auth_failed
+2026-08-28 17:04:37.999 -04:00 [WRN] Could not auto-migrate/seed database. Ensure the database server is running.
+Npgsql.PostgresException (0x80004005): 28P01: la autentificaci�n password fall� para el usuario �postgres�
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|209_0(NpgsqlConnector conn, String username, SslMode sslMode, GssEncryptionMode gssEncMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|209_0(NpgsqlConnector conn, String username, SslMode sslMode, GssEncryptionMode gssEncMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.GetAppliedMigrationsAsync(CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Migrations.Internal.NpgsqlHistoryRepository.GetAppliedMigrationsAsync(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetAppliedMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetPendingMigrationsAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at BackendTemplate.Infrastructure.Persistence.ApplicationDbContextInitializer.InitializeAsync() in D:\PROYECTOS\LAB-CONTROL\.Net-Started-Kit\backend-template-net\BackendTemplate.Infrastructure\Persistence\ApplicationDbContextInitializer.cs:line 34
+   at Program.<Main>$(String[] args) in D:\PROYECTOS\LAB-CONTROL\.Net-Started-Kit\backend-template-net\BackendTemplate.Api\Program.cs:line 36
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: la autentificaci�n password fall� para el usuario �postgres�
+    File: auth.c
+    Line: 320
+    Routine: auth_failed
+2026-08-28 17:04:38.138 -04:00 [INF] Now listening on: http://localhost:5090
+2026-08-28 17:04:38.139 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-08-28 17:04:38.140 -04:00 [INF] Hosting environment: Development
+2026-08-28 17:04:38.141 -04:00 [INF] Content root path: D:\PROYECTOS\LAB-CONTROL\.Net-Started-Kit\backend-template-net\BackendTemplate.Api
+2026-08-28 17:04:43.546 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5090/ - null null
+2026-08-28 17:04:43.598 -04:00 [WRN] Failed to determine the https port for redirect.
+2026-08-28 17:04:45.098 -04:00 [INF] HTTP GET / respondió 404 en 1502.3542 ms
+2026-08-28 17:04:45.105 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5090/ - 404 0 null 1561.3145ms
+2026-08-28 17:04:45.115 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5090/, Response status code: 404
+2026-08-28 17:05:40.951 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5090/scalar/v1 - null null
+2026-08-28 17:05:40.959 -04:00 [INF] Executing endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-08-28 17:05:41.129 -04:00 [INF] Write content with HTTP Response ContentType of text/html
+2026-08-28 17:05:41.130 -04:00 [INF] Executed endpoint 'HTTP: GET /scalar/{documentName?}'
+2026-08-28 17:05:41.131 -04:00 [INF] HTTP GET /scalar/v1 respondió 200 en 175.1385 ms
+2026-08-28 17:05:41.133 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5090/scalar/v1 - 200 718 text/html 183.7737ms
+2026-08-28 17:05:41.152 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5090/scalar/scalar.aspnetcore.js - null null
+2026-08-28 17:05:41.152 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5090/scalar/scalar.js - null null
+2026-08-28 17:05:41.157 -04:00 [INF] CORS policy execution failed.
+2026-08-28 17:05:41.158 -04:00 [INF] Request origin http://localhost:5090 does not have permission to access the resource.
+2026-08-28 17:05:41.161 -04:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.js'
+2026-08-28 17:05:41.161 -04:00 [INF] Executing endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-08-28 17:05:41.166 -04:00 [INF] Sending file with download name ''.
+2026-08-28 17:05:41.171 -04:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.aspnetcore.js'
+2026-08-28 17:05:41.172 -04:00 [INF] HTTP GET /scalar/scalar.aspnetcore.js respondió 200 en 16.3447 ms
+2026-08-28 17:05:41.173 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5090/scalar/scalar.aspnetcore.js - 200 1111 text/javascript 21.6943ms
+2026-08-28 17:05:41.375 -04:00 [INF] Sending file with download name ''.
+2026-08-28 17:05:41.393 -04:00 [INF] Executed endpoint 'HTTP: GET /scalar/scalar.js'
+2026-08-28 17:05:41.396 -04:00 [INF] HTTP GET /scalar/scalar.js respondió 200 en 240.2967 ms
+2026-08-28 17:05:41.399 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5090/scalar/scalar.js - 200 1078218 text/javascript 247.5795ms
+2026-08-28 17:05:41.720 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5090/openapi/v1.json - null null
+2026-08-28 17:05:41.727 -04:00 [INF] Executing endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-08-28 17:05:41.944 -04:00 [INF] Executed endpoint 'HTTP: GET /openapi/{documentName}.json'
+2026-08-28 17:05:41.945 -04:00 [INF] HTTP GET /openapi/v1.json respondió 200 en 218.2961 ms
+2026-08-28 17:05:41.947 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5090/openapi/v1.json - 200 null application/json;charset=utf-8 227.1436ms
+2026-08-28 17:05:42.559 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5090/scalar/favicon.svg - null null
+2026-08-28 17:05:42.563 -04:00 [INF] Executing endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-08-28 17:05:42.586 -04:00 [INF] Sending file with download name ''.
+2026-08-28 17:05:42.592 -04:00 [INF] Executed endpoint 'HTTP: GET /scalar/favicon.svg'
+2026-08-28 17:05:42.596 -04:00 [INF] HTTP GET /scalar/favicon.svg respondió 200 en 33.0064 ms
+2026-08-28 17:05:42.599 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5090/scalar/favicon.svg - 200 533 image/svg+xml 39.2014ms
+2026-08-28 17:19:30.423 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5090/api/Students - null null
+2026-08-28 17:19:30.432 -04:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-08-28 17:19:30.438 -04:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-08-28 17:19:30.440 -04:00 [INF] HTTP GET /api/Students respondió 401 en 13.1840 ms
+2026-08-28 17:19:30.442 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5090/api/Students - 401 0 null 18.711ms

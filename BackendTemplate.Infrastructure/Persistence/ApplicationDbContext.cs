@@ -1,42 +1,24 @@
 using BackendTemplate.Application.Common.Interfaces;
-using BackendTemplate.Domain.Common;
+using BackendTemplate.Domain.Entities;
 using BackendTemplate.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackendTemplate.Infrastructure.Persistence;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
-    private readonly IDateTimeService _dateTime;
-
-    public ApplicationDbContext(
-        DbContextOptions<ApplicationDbContext> options,
-        IDateTimeService dateTime) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        _dateTime = dateTime;
     }
+
+    public DbSet<Student> Students => Set<Student>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-    }
-
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-    {
-        foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-        {
-            switch (entry.State)
-            {
-                case EntityState.Added:
-                    entry.Entity.CreatedAt = _dateTime.UtcNow;
-                    break;
-                case EntityState.Modified:
-                    entry.Entity.LastModifiedAt = _dateTime.UtcNow;
-                    break;
-            }
-        }
-        return base.SaveChangesAsync(cancellationToken);
     }
 }

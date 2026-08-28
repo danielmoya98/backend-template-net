@@ -1,0 +1,65 @@
+services:
+  # Database: PostgreSQL 17
+  postgres:
+    image: postgres:17-alpine
+    container_name: backend_template_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: BackendTemplateDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d BackendTemplateDb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Cache: Redis
+  redis:
+    image: redis:7-alpine
+    container_name: backend_template_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Mail Testing: Mailpit (Web UI on :8025, SMTP on :1025)
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: backend_template_mailpit
+    restart: unless-stopped
+    ports:
+      - "8025:8025" # Web UI
+      - "1025:1025" # SMTP Port
+
+  # Web API Service (Optional local container)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend_template_api
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=BackendTemplateDb;Username=postgres;Password=postgrespassword
+    ports:
+      - "5000:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:
